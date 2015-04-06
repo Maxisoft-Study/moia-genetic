@@ -40,7 +40,7 @@ public class Main {
             iter += 1;
             myPop = algo.evolvePopulation(myPop);
             Individual fittest = myPop.getFittest();
-            System.out.printf("[%0" + iterStringLen + "d] Individual fittest genes=%s with fitness=%.5f. Population avg fitness=%.2f\n",
+            System.out.printf("[%0" + iterStringLen + "d] Individual fittest genes=%s with fitness=%.5f. Population average fitness=%.2f\n",
                     iter,
                     fittest,
                     fittest.getFitness(),
@@ -58,6 +58,7 @@ public class Main {
                 TimeUnit.MILLISECONDS.convert(timeAfter - timeBefore, TimeUnit.NANOSECONDS) / 1000.d);
         System.out.println("--------------------------------");
         System.out.println("Generation: " + iter);
+        System.out.printf("Population average fitness: %.2f\n", myPop.avgFitness());
         System.out.print("Genes:");
         System.out.println(fittest);
         System.out.print("Fitness:");

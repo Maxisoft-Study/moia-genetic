@@ -30,7 +30,7 @@ public class Population {
         Individual fittest = individuals[0];
         // Loop through individuals to find fittest
         for (int i = 1; i < size(); i++) {
-            if (fittest.getFitness() > getIndividual(i).getFitness()) {
+            if (fittest.getFitness() < getIndividual(i).getFitness()) {
                 fittest = getIndividual(i);
             }
         }
@@ -45,18 +45,11 @@ public class Population {
      */
     public double avgFitness() {
         double acc = 0.d;
-        int size = 0;
         for (int i = 0; i < size(); i++) {
             double fitness = getIndividual(i).getFitness();
-            if (Double.isFinite(fitness)) {
-                size += 1;
-                acc += fitness;
-            }
+            acc += fitness;
         }
-        if (size == 0) {
-            return 0;
-        }
-        return acc / size;
+        return acc / size();
     }
 
     /* Public methods */
