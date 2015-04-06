@@ -5,7 +5,7 @@ public class Parameters {
 
     public final static int DEFAULT_POPULATION_SIZE = 1024;
     public static int DEFAULT_MAX_ITER = 10;
-    public static double DEFAULT_UNIFORM_RATE = 0.1d;
+    public static double DEFAULT_UNIFORM_RATE = 0.4d;
     public static double DEFAULT_MUTATION_RATE = 0.015d;
     public static int DEFAULT_TOURNAMENT_SIZE = 5;
 

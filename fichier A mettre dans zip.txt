@@ -1,0 +1,5 @@
+src/
+genetic.properties
+moia-genetic-1.0.jar
+
+les rapports
