@@ -37,12 +37,20 @@ public class Population {
         return fittest;
     }
 
-    public double avgFitness(){
+    public double avgFitness() {
         double acc = 0.d;
+        int size = 0;
         for (int i = 0; i < size(); i++) {
-            acc += getIndividual(i).getFitness();
+            double fitness = getIndividual(i).getFitness();
+            if (Double.isFinite(fitness)) {
+                size += 1;
+                acc += fitness;
+            }
         }
-        return acc / size();
+        if (size == 0) {
+            return 0;
+        }
+        return acc / size;
     }
 
     /* Public methods */
