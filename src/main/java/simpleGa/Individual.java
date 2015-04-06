@@ -19,8 +19,8 @@ public class Individual implements Const {
     }
 
     private void updateDiameters() {
-        double d1 = getRaw(0);
-        double d2 = getRaw(defaultGeneLength);
+        double d1 = decode(getRaw(0));
+        double d2 = decode(getRaw(defaultGeneLength));
         double d3 = D - d2 - d1;
 
         // enforce b >= c >= a
@@ -79,13 +79,16 @@ public class Individual implements Const {
         return fitness;
     }
 
-    public double getRaw(int padding) {
+    public int getRaw(int padding) {
         int raw = 0;
         for (int i = 0; i < defaultGeneLength; ++i) {
             raw |= getGene(i + padding) << i;
         }
-        final int _2exp10 = 1 << 10;
-        return 10.d + (70.d / (_2exp10 - 1) * raw);
+        return raw;
+    }
+
+    public double decode(int raw) {
+        return 10.d + ((70.d / 1023.d) * raw);
     }
 
     public double getA() {
