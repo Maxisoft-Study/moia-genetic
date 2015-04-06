@@ -37,6 +37,12 @@ public class Population {
         return fittest;
     }
 
+    /**
+     * Compute average fitness of a population.
+     * <p>Computation ignore invalid individuals (ie fitness is infinite)
+     *
+     * @return current population's average fitness
+     */
     public double avgFitness() {
         double acc = 0.d;
         int size = 0;

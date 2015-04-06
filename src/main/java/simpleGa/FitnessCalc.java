@@ -12,8 +12,8 @@ public class FitnessCalc implements Const {
         return aire(a) + aire(b) + aire(c);
     }
 
-    static double aire(double diametre) {
-        double r = diametre / 2.d;
+    static double aire(double diameter) {
+        double r = diameter / 2.d;
         return Math.PI * r * r;
     }
 }

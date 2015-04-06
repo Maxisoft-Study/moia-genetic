@@ -6,7 +6,7 @@ public class Individual implements Const {
     public final static int genePerChromosome = 2;
     private byte[] chromosome = new byte[defaultGeneLength * genePerChromosome];
     // Cache
-    private double fitness = 0;
+    private double fitness = 0.d;
     private double a, b, c;
 
     // Create a random individual
@@ -18,12 +18,17 @@ public class Individual implements Const {
         updateDiameters();
     }
 
+    /**
+     * This method update some cache's properties.
+     * <p/>
+     * This method is called internally when genes are updated.
+     */
     private void updateDiameters() {
         double d1 = decode(getRaw(0));
         double d2 = decode(getRaw(defaultGeneLength));
         double d3 = D - d2 - d1;
 
-        // enforce b >= c >= a
+        /* enforce b >= c >= a */
         if (d1 >= d2) {
             if (d1 >= d3) {
                 b = d1;
@@ -73,20 +78,33 @@ public class Individual implements Const {
     }
 
     public double getFitness() {
-        if (fitness == 0) {
+        if (fitness == 0.d) {
             fitness = FitnessCalc.getFitness(this);
         }
         return fitness;
     }
 
-    public int getRaw(int padding) {
+    /**
+     * Extract a raw int value from individual's gene.
+     *
+     * @param startFrom the index where to start
+     * @return a raw int value
+     */
+    public int getRaw(int startFrom) {
         int raw = 0;
         for (int i = 0; i < defaultGeneLength; ++i) {
-            raw |= getGene(i + padding) << i;
+            raw |= getGene(i + startFrom) << i;
         }
         return raw;
     }
 
+    /**
+     * Decode a raw int value into a diameter.
+     *
+     * @param raw the raw int value
+     * @return a diameter
+     * @see #getRaw(int)
+     */
     public double decode(int raw) {
         return 10.d + ((70.d / 1023.d) * raw);
     }
