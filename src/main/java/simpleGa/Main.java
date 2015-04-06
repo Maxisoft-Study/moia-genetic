@@ -3,6 +3,7 @@ package simpleGa;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +35,7 @@ public class Main {
 
         /* Let's evolve our population. */
         int iter = 0;
+        long timeBefore = System.nanoTime();
         while (iter < maxIter) {
             iter += 1;
             myPop = algo.evolvePopulation(myPop);
@@ -45,11 +47,15 @@ public class Main {
                     myPop.avgFitness());
         }
         /* Population evolved. */
+        long timeAfter = System.nanoTime();
+
+
 
         /* Display results. */
         Individual fittest = myPop.getFittest();
         System.out.println("--------------------------------");
-        System.out.println("Population evolved.");
+        System.out.printf("Population evolved in %.3f sec \n",
+                TimeUnit.MILLISECONDS.convert(timeAfter - timeBefore, TimeUnit.NANOSECONDS) / 1000.d);
         System.out.println("--------------------------------");
         System.out.println("Generation: " + iter);
         System.out.print("Genes:");
