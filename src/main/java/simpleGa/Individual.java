@@ -1,9 +1,5 @@
 package simpleGa;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public class Individual implements Const {
 
     public final static int defaultGeneLength = 10;
@@ -26,6 +22,7 @@ public class Individual implements Const {
         double d1 = getRaw(0);
         double d2 = getRaw(defaultGeneLength);
         double d3 = D - d2 - d1;
+
         // enforce b >= c >= a
         if (d1 >= d2) {
             if (d1 >= d3) {
@@ -87,7 +84,8 @@ public class Individual implements Const {
         for (int i = 0; i < defaultGeneLength; ++i) {
             raw |= getGene(i + padding) << i;
         }
-        return raw * PRECISION;
+        final int _2exp10 = 1 << 10;
+        return 10.d + (70.d / (_2exp10 - 1) * raw);
     }
 
     public double getA() {
