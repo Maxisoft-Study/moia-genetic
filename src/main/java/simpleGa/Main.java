@@ -17,6 +17,7 @@ public class Main {
         } catch (IOException e) {
             LOGGER.log(Level.WARNING, "problem with configuration file, this program will use default values", e);
         }
+
         /* Parse configuration values. */
         int populationSize = Integer.parseInt(properties.getProperty("populationSize", "100"));
         int maxIter = Integer.parseInt(properties.getProperty("maxIter", "500"));
@@ -25,19 +26,27 @@ public class Main {
         int tournamentSize = Integer.parseInt(properties.getProperty("tournamentSize", "5"));
         boolean elitism = Boolean.parseBoolean(properties.getProperty("elitism", "true"));
 
+        int iterStringLen = String.valueOf(maxIter).length();
 
+        /* Init algorithm and population*/
         Algorithm algo = new Algorithm(uniformRate, mutationRate, tournamentSize, elitism);
         Population myPop = new Population(populationSize, true);
+
+        /* Let's evolve our population. */
         int iter = 0;
         while (iter < maxIter) {
             iter += 1;
             myPop = algo.evolvePopulation(myPop);
             Individual fittest = myPop.getFittest();
-            System.out.printf("[%d] Individual fittest genes=%s with fitness=%.5f. Population avg fitness=%.2f\n",
-                    iter, fittest,
+            System.out.printf("[%0" + iterStringLen + "d] Individual fittest genes=%s with fitness=%.5f. Population avg fitness=%.2f\n",
+                    iter,
+                    fittest,
                     fittest.getFitness(),
                     myPop.avgFitness());
         }
+        /* Population evolved. */
+
+        /* Display results. */
         Individual fittest = myPop.getFittest();
         System.out.println("--------------------------------");
         System.out.println("Population evolved.");
