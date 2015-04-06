@@ -39,7 +39,6 @@ public class Population {
 
     /**
      * Compute average fitness of a population.
-     * <p>Computation ignore invalid individuals (ie fitness is infinite)
      *
      * @return current population's average fitness
      */
