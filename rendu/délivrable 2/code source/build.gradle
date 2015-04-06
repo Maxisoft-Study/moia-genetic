@@ -1,0 +1,25 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+mainClassName = "simpleGa.Main"
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.3'
+  distributionUrl = 'http://services.gradle.org/distributions/gradle-2.3-all.zip'
+}
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+dependencies {
+}
