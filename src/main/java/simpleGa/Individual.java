@@ -26,12 +26,38 @@ public class Individual implements Const {
         double d1 = getRaw(0);
         double d2 = getRaw(defaultGeneLength);
         double d3 = D - d2 - d1;
-
-        List<Double> doubles = Arrays.asList(d1, d2, d3);
-        Collections.sort(doubles);
-        a = doubles.get(0);
-        c = doubles.get(1);
-        b = doubles.get(2);
+        // enforce b >= c >= a
+        if (d1 >= d2) {
+            if (d1 >= d3) {
+                b = d1;
+                if (d2 >= d3) {
+                    c = d2;
+                    a = d3;
+                } else { // d3 > d2
+                    c = d3;
+                    a = d2;
+                }
+            } else { // d3 > d1
+                b = d3;
+                c = d1;
+                a = d2;
+            }
+        } else { // d2 > d1
+            if (d2 >= d3) {
+                b = d2;
+                if (d1 >= d3) {
+                    c = d1;
+                    a = d3;
+                } else { // d3 > d1
+                    c = d3;
+                    a = d1;
+                }
+            } else { //d3 > d2
+                b = d3;
+                c = d2;
+                a = d1;
+            }
+        }
     }
 
     public byte getGene(int index) {
@@ -59,7 +85,7 @@ public class Individual implements Const {
     public double getRaw(int padding) {
         int raw = 0;
         for (int i = 0; i < defaultGeneLength; ++i) {
-            raw |= this.getGene(i + padding) << i;
+            raw |= getGene(i + padding) << i;
         }
         return raw * PRECISION;
     }

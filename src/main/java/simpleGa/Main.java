@@ -1,23 +1,29 @@
 package simpleGa;
 
+import simpleGa.Algorithm;
+import simpleGa.Population;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
 public class Main {
-    public static void main(String... args) throws InterruptedException, IOException {
+
+    public static void main(String... args) {
         Properties properties = new Properties();
         try (FileReader reader = new FileReader("genetic.properties")) {
             properties.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         int populationSize = Integer.parseInt(properties.getProperty("populationSize", "100"));
-        int maxIter = Integer.parseInt(properties.getProperty("maxIter", "100000"));
+        int maxIter = Integer.parseInt(properties.getProperty("maxIter", "500"));
         double uniformRate = Double.parseDouble(properties.getProperty("uniformRate", "0.1"));
         double mutationRate = Double.parseDouble(properties.getProperty("mutationRate", "0.015"));
         int tournamentSize = Integer.parseInt(properties.getProperty("tournamentSize", "5"));
         boolean elitism = Boolean.parseBoolean(properties.getProperty("elitism", "true"));
 
-        System.out.println(properties);
 
         Algorithm algo = new Algorithm(uniformRate, mutationRate, tournamentSize, elitism);
         Population myPop = new Population(populationSize, true);
